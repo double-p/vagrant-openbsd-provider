@@ -1,5 +1,5 @@
 
-# Vagrant Rackspace Cloud Provider
+# Vagrant OpenBSD vmd(4) Provider
 
 *NOTE* This is absolut alpha work-in-progress - DO NOT USE
 
