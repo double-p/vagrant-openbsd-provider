@@ -1,3 +1,5 @@
+.ruby-version
+*.lock
 *.gem
 *.rbc
 /.config
