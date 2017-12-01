@@ -24,7 +24,7 @@ $ vagrant plugin install vagrant-openbsd-provider
 ## Usage
 
 Once the plugin is installed, you use it with `vagrant up` by specifing
-the `rackspace` provider:
+the `openbsd-provider` provider:
 ```
 $ vagrant up --provider=openbsd-provider
 ```
