@@ -15,10 +15,9 @@ allowing Vagrant to control and provision machines on OpenBSD.
 
 ## Installation
 
-Install using standard Vagrant plugin installation methods.
-
+While WIP, clone this repo. rake/bundle a GEM and:
 ```
-$ vagrant plugin install vagrant-openbsd-provider
+$ vagrant plugin install /path/to/vagrant-openbsd-provider.gem
 ```
 
 ## Usage
