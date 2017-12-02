@@ -18,12 +18,12 @@ module VagrantPlugins
       This plugin enables Vagrant to manage machines with OpenBSD's vmd(8)
       DESC
 
-      config(:openbsd-provider, :provider) do
+      config("vagrant-openbsd-provider", :provider) do
         require_relative "config"
         Config
       end
 
-      provider(:openbsd-provider, { :box_optional => true, parallel: true}) do
+      provider "vagrant-openbsd-provider" do
         # Setup some things
         ProviderOpenBSD.init_i18n
         ProviderOpenBSD.init_logging
@@ -33,10 +33,10 @@ module VagrantPlugins
         Provider
       end
 
-      command('openbsd-provider') do
-        require_relative "command/root"
-        Command::Root
-      end
+      #command('openbsd-provider') do
+        #require_relative "command/root"
+        #Command::Root
+      #end
     end
   end
 end
