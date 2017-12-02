@@ -1,7 +1,7 @@
 # taken from mitchellh/vagrant-rackspace
 require "pathname"
 
-#?require "vagrant-openbsd-provider/plugin"
+require "vagrant-openbsd-provider/plugin"
 
 module VagrantPlugins
   module ProviderOpenBSD
