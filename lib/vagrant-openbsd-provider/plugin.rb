@@ -33,10 +33,6 @@ module VagrantPlugins
         Provider
       end
 
-      #command('openbsd-provider') do
-        #require_relative "command/root"
-        #Command::Root
-      #end
     end
   end
 end
