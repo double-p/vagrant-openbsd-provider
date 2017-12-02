@@ -9,10 +9,6 @@ module VagrantPlugins
   module ProviderOpenBSD
     class Driver
 
-      # This executor is responsible for actually executing commands, including
-      # bhyve, dnsmasq and other shell utils used to get VM's state
-      attr_accessor :executor
-
       #birth
       def initialize(machine)
         @logger = Log4r::Logger.new("vagrant_openbsd_provider::driver")
@@ -26,52 +22,96 @@ module VagrantPlugins
           @sudo = 'doas'
         end
       end
+
       def check_vmm_support
+        result = File.exist?("/dev/vmm")
+        raise Errors::SystemVersionIsTooLow if result == 0
+        result = execute(true, "#{@sudo} /usr/sbin/rcctl -f check vmd"
+        raise Errors::SystemCPUincapable if result == 1
       end
+
       def import(machine, ui)
+        #do we need this, no img-based .box for now
       end
-      def load(machine, ui)
-      end
+
       def boot(machine, ui)
+        directory   = @data_dir
+        config      = machine.provider_config
+        vmconfig    = machine.config
+        image       = config.image
+
+        vmctl_cmd = "#{@sudo} /usr/sbin/vmctl start -c -L "
+        vmctl_cmd += "#{vmconfig.vm_name}" #XXX dump a vm-config-hash
+        vmctl_cmd += " -b #{image}"
+        vmctl_cmd += " -m #{config.memory}"
+        vmctl_cmd += " -i #{config.nif}"
+        #XXX need a hash, vmd can connect multiple; also this might come from a box
+        # that has multiple IMGs (supported already?) - get it running with one first
+        vmctl_cmd += " -d #{config.disk}"
       end
+
       def pf_enabled?
+        status = execute(true, "#{@sudo} /sbin/pfctl -si | grep Enabled")
+        if status == 0
+          store_attr('pf_enabled', 'yes') #use from forward_port
+          true
+        else
+          false
+        end
       end
+
       def ip_ready?
+       #vm-id = tapN; ifconfig status 'UP' should be sufficient
       end
+
       def ssh_ready?(ssh_info)
+        if ssh_info
+          return execute(true, "nc -z #{ssh_info[:host]} #{ssh_info[:port]}") == 0
+        end
+        return false
       end
+
       def create_network_device(device_name, device_type)
       end
+
       def enable_nat(bridge, ui)
+       # -L is doing that for us ; sysctl for forwarding?
+       # inject anchor in pf.conf or let to user
+       # use pfctl -a anyway
       end
+
       def get_ip_address(interface_name, type=:guest)
+       # tapN having it or via switch/bridge?
       end
+
       def forward_port(forward_information, tap_device)
+       # as enable_nat; forcefully inject or docs?
       end
+
       #lifecycle
       def state(vm_name)
+       # vmctl status
       end
+
       def execute(*cmd, **opts, &block)
+       # not needed?
       end
+
       def get_mac_address(vm_name)
+       # tapN?
       end
+
       def get_interface_name(device_name)
+       # implicit
       end
-      def restart_service(service_name)
-      end
-      def get_attr(attr)
-      end
-      def pkg_install(package)
-      end
-      def store_attr(name, value)
-      end
-      def check_and_install(command, package, ui)
-      end
+
       # deathrays
       def shutdown(ui)
       end
+
       def destroy
       end
+
       def cleanup
       end
     end
