@@ -1,4 +1,4 @@
-#require "log4r"
+require "log4r"
 #require "fileutils"
 #require "digest/md5"
 #require "io/console"
@@ -51,13 +51,8 @@ module VagrantPlugins
       end
 
       def pf_enabled?
-        status = execute(true, "#{@sudo} /sbin/pfctl -si | grep Enabled")
-        if status == 0
-          store_attr('pf_enabled', 'yes') #use from forward_port
-          true
-        else
-          false
-        end
+        return execute(true, "#{@sudo} /sbin/pfctl -si | grep Enabled") == 0
+        return false
       end
 
       def ip_ready?
