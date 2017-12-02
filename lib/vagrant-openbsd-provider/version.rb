@@ -1,5 +1,5 @@
 module VagrantPlugins
-  module OpenBSDProvider
+  module ProviderOpenBSD
     VERSION = "0.1.0"
   end
 end

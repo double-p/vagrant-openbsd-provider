@@ -4,7 +4,7 @@ require "pathname"
 #?require "vagrant-openbsd-provider/plugin"
 
 module VagrantPlugins
-  module OpenBSDProvider
+  module ProviderOpenBSD
     lib_path = Pathname.new(File.expand_path("../vagrant-openbsd-provider", __FILE__))
     autoload :Errors, lib_path.join("errors")
 

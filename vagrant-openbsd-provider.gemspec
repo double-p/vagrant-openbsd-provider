@@ -5,7 +5,7 @@ require "vagrant-openbsd-provider/version"
 
 Gem::Specification.new do |spec|
   spec.name          = "vagrant-openbsd-provider"
-  spec.version       = VagrantPlugins::OpenBSDProvider::VERSION
+  spec.version       = VagrantPlugins::ProviderOpenBSD::VERSION
   spec.authors       = ["Philipp Buehler"]
   spec.email         = ["pbuehler@sysfive.com"]
 
@@ -31,4 +31,5 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "bundler", "~> 1.16"
   spec.add_development_dependency "rake", "~> 10.0"
+  spec.add_development_dependency "vagrant-spec", "~> 1.4.0"
 end

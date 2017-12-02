@@ -3,7 +3,7 @@ require "vagrant"
 require "vagrant-openbsd-provider/action"
 
 module VagrantPlugins
-  module OpenBSDProvider
+  module ProviderOpenBSD
     class Provider < Vagrant.plugin("2", :provider)
       def initialize(machine)
         @machine = machine

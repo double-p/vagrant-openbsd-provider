@@ -11,7 +11,7 @@ if Vagrant::VERSION < "1.1.0"
 end
 
 module VagrantPlugins
-  module Rackspace
+  module ProviderOpenBSD
     class Plugin < Vagrant.plugin("2")
       name "OpenBSD vmd(8)"
       description <<-DESC
@@ -25,8 +25,8 @@ module VagrantPlugins
 
       provider(:openbsd-provider, { :box_optional => true, parallel: true}) do
         # Setup some things
-        OpenBSDProvider.init_i18n
-        OpenBSDProvider.init_logging
+        ProviderOpenBSD.init_i18n
+        ProviderOpenBSD.init_logging
 
         # Load the actual provider
         require_relative "provider"
